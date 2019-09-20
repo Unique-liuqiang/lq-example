@@ -1,0 +1,64 @@
+plugins {
+    id 'org.springframework.boot' version '2.1.6.RELEASE'
+    id 'java'
+}
+/*buildscript {
+    repositories {
+        mavenCentral()
+    }
+}*/
+//apply plugin: 'java'
+
+apply plugin: 'io.spring.dependency-management'  //应用的插件
+
+
+group 'com.lqlq'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+//targetCompatibility = 1.8
+
+repositories {
+    maven{
+        url 'http://maven.aliyun.com/nexus/content/groups/public/'
+    }
+    mavenCentral()
+}
+
+ext {
+    version_ojdbc = '11.2.+'
+    springBootVersion = '2.0.0.RELEASE'
+}
+
+dependencies {
+  /*  compile "javax.servlet:javax.servlet-api:3.1-b07"
+    compile 'org.projectlombok:lombok:1.16.10'
+    compile 'com.github.httl:httl:1.0.11'
+    compile 'cglib:cglib:3.1'
+    compile 'org.apache.commons:commons-lang3:3.7'
+    compile 'javassist:javassist:3.12.1.GA'
+    compile 'org.springframework:spring-core:3.0.6.RELEASE'
+    compile 'org.springframework:spring-context:3.0.6.RELEASE'
+    compile 'org.springframework:spring-aop:3.0.6.RELEASE'
+    compile 'org.springframework:spring-orm:3.0.6.RELEASE'
+    compile 'cglib:cglib:2.1_2'
+    compile 'com.mchange:c3p0:0.9.5.2'
+    compile 'mysql:mysql-connector-java:5.1.37'
+    compile 'dom4j:dom4j:1.6.1'
+    compile 'commons-lang:commons-lang:2.6'
+    implementation  'com.squareup.okhttp3:okhttp:3.10.0'*/
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    compile 'org.aspectj:aspectjrt:1.6.1'
+    compile 'aspectj:aspectjweaver:1.5.3'
+    compile 'org.apache.commons:commons-lang3:3.7'
+    compile 'org.projectlombok:lombok:1.16.10'
+    compile 'com.github.httl:httl:1.0.11'
+    compile 'mysql:mysql-connector-java:5.1.37'
+    compile 'dom4j:dom4j:1.6.1'
+    compile 'cglib:cglib:2.1_2'
+    compile 'com.mchange:c3p0:0.9.5.2'
+    compile 'mysql:mysql-connector-java:5.1.37'
+    compile 'javassist:javassist:3.12.1.GA'
+}
+
