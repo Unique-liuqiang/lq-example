@@ -1,10 +1,13 @@
+/*
 package javassist;
 
 import java.lang.reflect.Method;
 
+*/
 /**
  * 演示使用javaassist技术动态修改字节码文件
- */
+ *//*
+
 public class Test001 {
 
 	public static void main(String[] args) {
@@ -34,3 +37,4 @@ public class Test001 {
 	}
 
 }
+*/

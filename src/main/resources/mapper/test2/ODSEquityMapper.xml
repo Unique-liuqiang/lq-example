@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="springBoot.test2.mapper.ODSEquityMapper" >
+    <resultMap id="BaseResultMap" type="springBoot.pojo.EquityAssets" >
+        <result column="ZCDM" property="zcdm" jdbcType="VARCHAR" />
+        <result column="ZQMC" property="zqmc" jdbcType="VARCHAR" />
+        <result column="ZHMC" property="zhmc" jdbcType="VARCHAR" />
+        <result column="ZQDM" property="reportCode" jdbcType="VARCHAR" />
+        <result column="DJDATE" property="bookDate" jdbcType="VARCHAR" />
+        <result column="CQDATE" property="exrightsDate" jdbcType="VARCHAR" />
+        <result column="DZDATE" property="distributeDate" jdbcType="INTEGER" />
+        <result column="BEFORERATE" property="beforeRate" jdbcType="DOUBLE" />
+        <result column="AFTERRATE" property="afterRate" jdbcType="DOUBLE" />
+        <result column="CQJE" property="exrights" jdbcType="DOUBLE" />
+    </resultMap>
+
+    <resultMap id="Reminder" type="springBoot.pojo.EquityAssets">
+        <result column="zcdm" property="zcdm" jdbcType="VARCHAR" />
+        <result column="Reminder" property="Reminder" jdbcType="VARCHAR" />
+    </resultMap>
+
+
+    <select id="selectEquityPerson" parameterType="java.util.Map" resultMap="Reminder">
+        select K.C_port_code as zcdm ,L.c_user_code as Reminder
+        from (
+        select A.c_post_code, A.c_user_code,A.C_port_code
+        from T_S_USER_RELA A
+        WHERE A.c_post_code in ('YWSQ', 'CWFH')
+        AND A.C_port_code in  (
+        SELECT A.C_PORT_CODE
+        FROM T_d_ai_stock  A
+        LEFT JOIN t_d_od_par_qy_info B
+        ON A.d_Stock = TO_DATE(B.Cqdate,'yyyy-MM-dd')
+        LEFT JOIN T_P_SV_SEC_BASE C
+        ON B.Zqdm = C.c_Sec_Mkt_Code
+        WHERE A.D_STOCK = to_date(#{stockDay},'yyyy-MM-dd')
+        and A.c_Sec_Code = C.c_Sec_Code and A.n_Amount > 0
+        )
+        ) K
+        join t_s_user L on K.c_user_code = L.c_user_code
+        join T_S_POST M on K.c_post_code = M.c_post_code
+        UNION
+        SELECT  M.C_port_code as zhdm, N.c_User_Code Reminder
+        from t_s_bail M
+        join t_s_user N on M.c_User_Code = N.c_User_Code
+        join t_s_post P on M.c_Post_Code = P.c_Post_Code
+        WHERE (to_date(#{stockDay},'yyyy-MM-dd') >= M.d_start)
+        and (to_date(#{stockDay},'yyyy-MM-dd') &lt;= M.d_end)
+        and M.C_POST_CODE in ('YWSQ', 'CWFH')
+        AND M.c_port_code in (
+        SELECT A.C_PORT_CODE
+        FROM T_d_ai_stock  A
+        LEFT JOIN t_d_od_par_qy_info B
+        ON A.d_Stock = TO_DATE(B.Cqdate,'yyyy-MM-dd')
+        LEFT JOIN T_P_SV_SEC_BASE C
+        ON B.Zqdm = C.c_Sec_Mkt_Code
+        WHERE D_STOCK = to_date(#{stockDay},'yyyy-MM-dd')
+        and A.c_Sec_Code = C.c_Sec_Code and A.n_Amount > 0
+        )
+    </select>
+
+</mapper>

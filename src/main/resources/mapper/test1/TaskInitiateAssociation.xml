@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="springBoot.test1.mapper.UserMapper" >
+    <resultMap id="BaseResultMapper" type="springBoot.pojo.TaskInitiateAssociation">
+        <result column="INITATE_UID" property="initateUid" jdbcType="VARCHAR"></result>
+        <result column="FXTZSZZJB_FJID" property="fxtzszzjbFjid" jdbcType="VARCHAR"></result>
+        <result column="TZSYJSJB_FJID" property="tzsyjsjbFjid" jdbcType="VARCHAR"></result>
+        <result column="JSKFPSY_FJID" property="jskfpsyFjid" jdbcType="VARCHAR"></result>
+        <result column="JSKFPSY_DOCID" property="jskfpsyDocId" jdbcType="VARCHAR"></result>
+    </resultMap>
+
+    <select id="selectList" resultMap="BaseResultMapper">
+              select  *
+              from HEX_CJOP_AIM_TASK_ASSOCIATION
+               where INITATE_UID = #{initateUid,jdbcType=VARCHAR}
+    </select>
+</mapper>
